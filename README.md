@@ -58,15 +58,13 @@ Normally, we just need use 'todo' and 'fail'.
 
 _Main Methods_
 
-* then - We do work then to do next.
-    ```
+then - We do work then to do next.
+```
 Promise().then(function(){}).then(function(){}).then(function(){});
-    ```
-* and - We do work and do another work. When all of thing is done, then to do next.
-
-    The result of next 'Promise' is an array, if you use 'and'.
-
-    ```
+```
+and - We do work and do another work. When all of thing is done, then to do next.
+The result of next 'Promise' is an array, if you use 'and'.
+```
 Promise(function(){
     //do 0
 }).and(function(){
@@ -79,18 +77,18 @@ Promise(function(){
     //expect(results).have.length(3);
     return results;
 });
-    ```
-* done - All of works have done. Finally work to do.
-    ```
+```
+done - All of works have done. Finally work to do.
+```
 Promise().then(function(){}).then(function(){}).done(function(){},function(){},function(){});
-    ```
-* resolve - Resolve next work.
-    ```
+```
+resolve - Resolve next work.
+```
 Promise(function(result){
     //expect(result).equal(0);
 }).then().done().resolve(0);
-    ```
-    ```
+```
+```
 Promise(function(result){
     var promise = Promise()
     setTimeout(function(){
@@ -100,15 +98,15 @@ Promise(function(result){
 }).then(function(1){
     //expect(result).equal(1);
 }).done().resolve(0);
-    ```
-    ```
+```
+```
 Promise(function(result){
     return Promise().resolve(result+1);
 }).then(function(1){
     //expect(result).equal(1);
 }).done().resolve(0);
-    ```
-    ```
+```
+```
 Promise(function(result){
     throw 'fail';
 }, function(result){
@@ -117,9 +115,9 @@ Promise(function(result){
 }).then(function(result){
     //expect(result).equal(1);
 }).done().resolve(0);
-    ```
-* reject - Reject it then go to failure
-    ```
+```
+reject - Reject it then go to failure
+```
 Promise(function(){}
 ,function(result){
     //expect(result).equal(0);
@@ -128,8 +126,8 @@ Promise(function(){}
 , function(result){
     //expect(result).equal(1);
 }).reject(0);
-    ```
-    ```
+```
+```
 Promise(function(result){
     var promise = Promise()
     setTimeout(function(){
@@ -139,8 +137,8 @@ Promise(function(result){
 }).then(function(1){
     //expect(result).equal(1);
 }).done().resolve(0);
-    ```
-    ```
+```
+```
 Promise(function(result){}, function(result){
     //expect(result).equal(0);
     //logger("Reject return instance promise, it will do next.");
@@ -164,8 +162,8 @@ Promise(function(result){}, function(result){
 .done(function(result){}, function(result){
     expect(result).equal("goto done");
 }).reject(0);
-    ```
-    ```
+```
+```
 Promise(function(result){
     //logger("go to fail function");
     throw '123';
@@ -198,9 +196,9 @@ Promise(function(result){
     //expect(result).equal("goto done");
     resolvePromise.resolve("next reject");
 }).resolve(0);
-    ```
-* reprocess - Process progress.
-    ```
+```
+reprocess - Process progress.
+```
 var sum = 0;
 var promise = new Promise(function(result){
     //expect(result).equal("goto done");
@@ -221,18 +219,20 @@ var promise = new Promise(function(result){
 var interval = setInterval(function(){
     promise.reprocess(interval);
 }, 20);
-    ```
-* root - Get root promise.
-    ```
+```
+root - Get root promise.
+```
 var root = promise();
 root === root.then(function(){}).then(function(){}).root(); // true
-    ```
-* end - Get end promise.
-    ```
+```
+end - Get end promise.
+```
 var root = promise();
 root.then(function(){}).then(function(){}) === root.end(); // true
-    ```
+```
 
 _More demo to undeserstand_
+
 [Test](http://mdsb100.github.io/homepage/amdquery/test/test/assets/base/Promise.html)
+
 [Practice](https://github.com/mdsb100/AMDQuery/blob/master/amdquery/main/communicate.js)
