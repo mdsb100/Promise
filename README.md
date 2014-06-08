@@ -112,7 +112,7 @@ Promise(function(result){
 })
 .done().resolve(0);
 ```
-done - All of works have done. Finally work to do.
+done - Finally work to do.
 ```
 Promise().then(function(){}).then(function(){}).done(function(){},function(){},function(){});
 ```
