@@ -18,7 +18,7 @@ var promise = new Promise(function(result){
 }).then(function(){
   var promise = new Promise();
   setTimeout(function(){
-    // After 0.2 seconds to go next task.
+    // After 0.2 seconds to go next task. An asynchronous operation.
     promise.resolve("resolve");
   }, 200);
   return promise;
@@ -65,18 +65,38 @@ Promise().then(function(){}).then(function(){}).then(function(){});
 and - We do work and do another work. When all of thing is done, then to do next.
 The result of next 'Promise' is an array, if you use 'and'.
 ```
-Promise(function(){
-    //do 0
-}).and(function(){
-    //do 1
-}).and(function(){
-    //do 2
-}).then(function(results){
-    //After task 0,1,2, then todo.
-    //expect(results).be.array();
-    //expect(results).have.length(3);
-    return results;
-});
+function delay(ms, expect) {
+    return function(result) {
+      var promise = new Promise();
+      //expect(result, "in delay").equal(0);
+      setTimeout(function() {
+        promise.resolve(ms);
+      }, ms);
+      return promise;
+    };
+};
+Promise(function(result){
+  expect(result).equal(0);
+  return result;
+})
+.and(function(result){
+  return Promise().resolve("and sync with promise");
+})
+.and(delay(100, expect))
+.and(delay(200, expect))
+.and(function(result){
+  return "middle";
+})
+.and(delay(300, expect))
+.and(function(result){
+  expect(result).equal(0);
+  return "and sync";
+}).then(function(result){
+  expect(result).be.array();
+  expect(result).have.length(7);
+  return result;
+})
+.done().resolve(0);
 ```
 done - All of works have done. Finally work to do.
 ```
