@@ -40,6 +40,20 @@ var promise = new Promise(function(result){
 
 ```
 
+_Return a new Promise to do an asynchronous operation_
+```
+then(function(){
+  var promise = new Promise();
+  ajax({
+    callback: function(result){
+      promise.resolve(result);
+    }
+  });
+  return promise;
+})
+
+```
+
 _Only three parameters_
 ```
 var promise = Promise().then(todo, fail, process);
