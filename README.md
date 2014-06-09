@@ -219,8 +219,8 @@ Promise(function(result){
     return promise;
 })
 .then(function(result){
-    logger("It does not be call");
-    expect(result).not.equal(1);
+    //logger("It does not be call");
+    //expect(result).not.equal(1);
 }, function(result){
     //expect(result).equal("goto next reject");
     return "goto done";
@@ -228,7 +228,6 @@ Promise(function(result){
 .done(function(result){
 }, function(result){
     //expect(result).equal("goto done");
-    resolvePromise.resolve("next reject");
 }).resolve(0);
 ```
 reprocess - Process progress.
