@@ -255,12 +255,12 @@ var interval = setInterval(function(){
 ```
 root - Get root promise.
 ```
-var root = promise();
+var root = Promise();
 root === root.then(function(){}).then(function(){}).root(); // true
 ```
 end - Get end promise.
 ```
-var root = promise();
+var root = Promise();
 root.then(function(){}).then(function(){}) === root.end(); // true
 ```
 
