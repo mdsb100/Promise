@@ -145,7 +145,7 @@ Promise(function(result){
     throw 'fail';
 }, function(result){
     //expect(result).equal(0);
-    new Promise().resolve(result+1);
+    return new Promise().resolve(result+1);
 }).then(function(result){
     //expect(result).equal(1);
 }).done().resolve(0);
