@@ -4,7 +4,11 @@ Platform: any web broswer, nodejs.
 
 AMD/CMD.
 
+###Test###
 [Test](http://mdsb100.github.io/homepage/amdquery/test/test/assets/base/Promise.html)
+
+###Document###
+[Document](http://mdsb100.github.io/homepage/amdquery/document/document/app.html#docNavmenuKey=guide_AMDQuery&tab=1&apiNavmenuKey=Promise.html)
 
 ##What problems can 'Promise' solve?
 
@@ -411,9 +415,6 @@ Promise.group(promise1, promise2, promise3)
 })
 .done(resolvePromise).resolve();
 ```
-
-###Document###
-[Document](http://mdsb100.github.io/homepage/amdquery/document/document/app.html#docNavmenuKey=guide_AMDQuery&tab=1&apiNavmenuKey=Promise.html)
 
 ###More demo to undeserstand###
 
