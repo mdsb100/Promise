@@ -4,6 +4,8 @@ Platform: any web broswer, nodejs.
 
 AMD/CMD.
 
+[Test](http://mdsb100.github.io/homepage/amdquery/test/test/assets/base/Promise.html)
+
 ##What problems can 'Promise' solve?
 
 'Promise' can solve various asynchronous operation, like: AJAX request, IO file, user behavior...
@@ -414,7 +416,5 @@ Promise.group(promise1, promise2, promise3)
 [Document](http://mdsb100.github.io/homepage/amdquery/document/document/app.html#docNavmenuKey=guide_AMDQuery&tab=1&apiNavmenuKey=Promise.html)
 
 ###More demo to undeserstand###
-
-[Test](http://mdsb100.github.io/homepage/amdquery/test/test/assets/base/Promise.html)
 
 [Practice](https://github.com/mdsb100/AMDQuery/blob/master/amdquery/main/communicate.js)
