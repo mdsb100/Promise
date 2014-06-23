@@ -1,6 +1,8 @@
-#A JavaScript Library: Promise/A
+#A JavaScript Library: Promise
 
-Platform: any web broswer, nodejs. Module managerment: AMD/CMD.
+Platform: any web broswer, nodejs.
+
+AMD/CMD.
 
 ##What problems can 'Promise' solve?
 
@@ -8,7 +10,9 @@ Platform: any web broswer, nodejs. Module managerment: AMD/CMD.
 
 You may use it for asynchronous or synchronous.
 
-_Quick start_
+**Only 5K size.**
+
+**Quick star**
 ```
 var promise = new Promise(function(result){
   //expect(result).equal(0);
@@ -40,6 +44,80 @@ var promise = new Promise(function(result){
 
 ```
 
+###Advanced###
+
+```
+function Person(){
+  var minutes = 0;
+  this.spent = function (time){
+    minutes = time;
+  }
+  
+  I.spent.minutes = {};
+  
+  I.spent.minutes.doing = function(something){
+    var promise = Promise();
+    setTimeout(function(){
+      promise.resolve(something);
+    }, minutes);
+    return promise;
+  }
+  
+  I.spent.minutes.listing = I.spent.minutes.doing;
+  
+  I.spent.minutes.playing = I.spent.minutes.doing;
+  
+  I.spent.minutes.takeing = I.spent.minutes.doing;
+  
+}
+
+var I = new Person();
+
+var Finish_homework = Promise(function(English){
+    return I.spent(30).minutes.doing(English);
+}).then(function(result){
+    return 'Math';
+}).then(function(Math){
+    return I.spent(45).minutes.doing(Math);
+}).done(function(){
+    return "I finish homework";
+}).resolve("English");
+
+var Play_Game = Promise(function(){
+    return "DOTA";
+}).then(function(DOTA){
+    return I.spent(60).minutes.playing(DOTA);
+}).done(function(){
+    return "I am so happy";
+});
+
+
+var back_Home = Promise(function(Music){
+    return I.spent(80).minutes.listing(Music);
+})
+.and(Finish_homework.end())
+.and(Play_Game.end())
+.then(function(state){ //'then' can not accept a instance of Promise.
+    console.log(state[1]); // I finish homework
+    console.log(state[2]); // I am so happy
+    return I.spent(20).minutes.taking('a bath');
+})
+.done(
+    Promise(function(){
+        return "Go to bed";
+    })
+);
+
+Promise(function(){ //'constructor' can not accept a instance of Promise.
+    back_Home.resolve();
+    return back_Home.end();
+}).root().resolve('Go to home');
+
+
+```
+
+***Remeber: 'then' and 'constructor' can not accept a instance of Promise***
+
 _Return a new Promise to do an asynchronous operation_
 ```
 then(function(){
@@ -47,12 +125,17 @@ then(function(){
   ajax({
     callback: function(result){
       promise.resolve(result);
+    },
+    fail: function(err){
+      promise.reject(err);
     }
   });
   return promise;
 })
 
 ```
+
+##Anything is a Promise##
 
 _Only three parameters_
 ```
@@ -112,9 +195,36 @@ Promise(function(result){
 })
 .done().resolve(0);
 ```
+```
+Promise(function(result){
+  expect(result).equal(0);
+  return result;
+})
+.multiAnd(
+  function(result){
+    return Promise().resolve("and sync with promise");
+  },
+  delay(100, expect)
+)
+.then(function(result){
+  expect(result).be.array();
+  expect(result).have.length(2);
+  return result;
+})
+.multiAnd([
+  function(result){
+    return Promise().resolve("and sync with promise");
+  },
+  delay(100, expect)
+])
+.done().resolve(0);
+```
 done - Finally work to do.
 ```
 Promise().then(function(){}).then(function(){}).done(function(){},function(){},function(){});
+```
+```
+Promise().then(function(){}).done(function(){},function(){},function(){}).done().done();
 ```
 resolve - Resolve next work.
 ```
@@ -264,7 +374,46 @@ var root = Promise();
 root.then(function(){}).then(function(){}) === root.end(); // true
 ```
 
-_More demo to undeserstand_
+constructorOf - Is it an instance of Promise. If you hava a promise which is from iframe, then you can use it.
+```
+  var a = Promise();
+  Promise.constructorOf(a)；
+  //return true
+```
+
+group - Group a list of Promise.
+```
+var promise1 = Promise(function(){
+  var promise = Promise();
+  setTimeout(function(){
+    promise.resolve('promise1');
+  }, 20);
+  return promise;
+}).resolve();
+var promise2 = Promise(function(){
+  return 'promise2'
+}).resolve();
+var promise3 = Promise(function(){
+  var promise = Promise();
+  setTimeout(function(){
+    promise.resolve('promise3');
+  }, 30);
+  return promise;
+});
+
+Promise.group(promise1, promise2, promise3)
+.then(function(result){
+  expect(result).to.be.array();
+  expect(result).to.have.length(3);
+  return result;
+})
+.done(resolvePromise).resolve();
+```
+
+###Document###
+[Document](http://mdsb100.github.io/homepage/amdquery/document/document/app.html#docNavmenuKey=guide_AMDQuery&tab=1&apiNavmenuKey=Promise.html)
+
+###More demo to undeserstand###
 
 [Test](http://mdsb100.github.io/homepage/amdquery/test/test/assets/base/Promise.html)
 
