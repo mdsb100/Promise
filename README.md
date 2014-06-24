@@ -59,9 +59,9 @@ function Person(){
     minutes = time;
   }
   
-  I.spent.minutes = {};
+  this.spent.minutes = {};
   
-  I.spent.minutes.doing = function(something){
+  this.spent.minutes.doing = function(something){
     var promise = Promise();
     setTimeout(function(){
       promise.resolve(something);
@@ -69,11 +69,11 @@ function Person(){
     return promise;
   }
   
-  I.spent.minutes.listing = I.spent.minutes.doing;
+  this.spent.minutes.listing = I.spent.minutes.doing;
   
-  I.spent.minutes.playing = I.spent.minutes.doing;
+  this.spent.minutes.playing = I.spent.minutes.doing;
   
-  I.spent.minutes.takeing = I.spent.minutes.doing;
+  this.spent.minutes.takeing = I.spent.minutes.doing;
   
 }
 
