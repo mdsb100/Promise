@@ -58,9 +58,9 @@ function Person(){
   this.spent = function (time){
     minutes = time;
   }
-  
+
   this.spent.minutes = {};
-  
+
   this.spent.minutes.doing = function(something){
     var promise = Promise();
     setTimeout(function(){
@@ -68,13 +68,13 @@ function Person(){
     }, minutes);
     return promise;
   }
-  
+
   this.spent.minutes.listing = I.spent.minutes.doing;
-  
+
   this.spent.minutes.playing = I.spent.minutes.doing;
-  
+
   this.spent.minutes.takeing = I.spent.minutes.doing;
-  
+
 }
 
 var I = new Person();
@@ -101,8 +101,8 @@ var Play_Game = Promise(function(){
 var back_Home = Promise(function(Music){
     return I.spent(80).minutes.listing(Music);
 })
-.and(Finish_homework.end())
-.and(Play_Game.end())
+.when(Finish_homework.end())
+.when(Play_Game.end())
 .then(function(state){ //'then' can not accept a instance of Promise.
     console.log(state[1]); // I finish homework
     console.log(state[2]); // I am so happy
@@ -165,8 +165,8 @@ then - We do work then to do next.
 ```
 Promise().then(function(){}).then(function(){}).then(function(){});
 ```
-and - We do work and do another work. When all of thing is done, then to do next.
-The result of next 'Promise' is an array, if you use 'and'.
+when - When all of thing is done, then to do next.
+The result of next 'Promise' is an array, if you use 'when'.
 ```
 function delay(ms, expect) {
     return function(result) {
@@ -182,18 +182,18 @@ Promise(function(result){
   expect(result).equal(0);
   return result;
 })
-.and(function(result){
-  return Promise().resolve("and sync with promise");
+.when(function(result){
+  return Promise().resolve("when sync with promise");
 })
-.and(delay(100, expect))
-.and(delay(200, expect))
-.and(function(result){
+.when(delay(100, expect))
+.when(delay(200, expect))
+.when(function(result){
   return "middle";
 })
-.and(delay(300, expect))
-.and(function(result){
+.when(delay(300, expect))
+.when(function(result){
   expect(result).equal(0);
-  return "and sync";
+  return "when sync";
 }).then(function(result){
   expect(result).be.array();
   expect(result).have.length(7);
@@ -206,9 +206,9 @@ Promise(function(result){
   expect(result).equal(0);
   return result;
 })
-.multiAnd(
+.multiWhen(
   function(result){
-    return Promise().resolve("and sync with promise");
+    return Promise().resolve("when sync with promise");
   },
   delay(100, expect)
 )
@@ -217,9 +217,9 @@ Promise(function(result){
   expect(result).have.length(2);
   return result;
 })
-.multiAnd([
+.multiWhen([
   function(result){
-    return Promise().resolve("and sync with promise");
+    return Promise().resolve("when sync with promise");
   },
   delay(100, expect)
 ])
@@ -363,7 +363,7 @@ var promise = new Promise(function(result){
 }).done(function(result){
     //expect(sum).equal(10);
     //expect(result).equal("goto done");
-    return "next and";
+    return "next when";
 });
 var interval = setInterval(function(){
     promise.reprocess(interval);
